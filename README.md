@@ -3,7 +3,8 @@ This is Perl module App::Prove::Plugin::ProgressBar::Each.
 DESCRIPTION
 ===========
 
-Is an App::Prove plugin that shows progress bar for each test script.
+App::Prove plugin that shows progress bar for each test script.
+Greatly inspired by [App::Prove::Plugin::ProgressBar](http://github.com/Ovid/App-Prove-Plugin-ProgressBar).
 
 Run
 
@@ -18,4 +19,4 @@ prove with -P:
 
 	prove -PProgressBar::Each
 
-Set $ENV{PROVE_LOG} to save testing log.
+Set `$ENV{PROVE_LOG}` to save testing log.
