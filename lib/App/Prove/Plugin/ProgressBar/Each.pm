@@ -47,7 +47,8 @@ sub open_test {
     $parser->callback(
         EOF => sub {
             my $parser = shift;
-            if ($parser->actual_failed || $parser->parse_errors) {
+            if ($parser->failed || $parser->parse_errors) {
+                warn 'aa';
                 $self->_set_colors('red');
             }
             undef $self->{progress};
