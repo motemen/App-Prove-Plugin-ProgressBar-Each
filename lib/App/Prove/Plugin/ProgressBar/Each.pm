@@ -18,7 +18,14 @@ use Term::ProgressBar::Simple;
 sub new {
     my ($class, $args) = @_;
     $args->{verbosity} = -2;
-    return $class->SUPER::new($args);
+
+    my $self = $class->SUPER::new($args);
+
+    if ($ENV{PROVE_LOG}) {
+        open $self->{log_fh}, '>', $ENV{PROVE_LOG} or die $!;
+    }
+
+    return $self;
 }
 
 sub open_test {
@@ -67,6 +74,15 @@ sub open_test {
             undef;
         }
     );
+
+    $parser->callback(
+        ALL => sub {
+            my $result = shift;
+            my $message = $result->as_string;
+            $message .= "\n" unless $message =~ /\n$/;
+            print { $self->{log_fh} } $message;
+        }
+    ) if $self->{log_fh};
 
     $self->SUPER::open_test($test, $parser);
 }
