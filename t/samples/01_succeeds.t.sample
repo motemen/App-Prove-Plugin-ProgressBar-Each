@@ -1,0 +1,9 @@
+#!perl
+use strict;
+use Test::More tests => 3;
+
+pass;
+sleep 1;
+pass 'a';
+sleep 1;
+pass 'b';

@@ -1,0 +1,11 @@
+#!perl
+use strict;
+use Test::More;
+
+pass;
+sleep 1;
+pass;
+sleep 1;
+pass;
+
+done_testing;

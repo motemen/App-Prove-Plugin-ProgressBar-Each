@@ -1,0 +1,15 @@
+#!perl
+use strict;
+use Test::More tests => 4;
+
+pass;
+sleep 1;
+pass 'a';
+
+sleep 1;
+
+fail;
+sleep 1;
+fail 'b';
+sleep 1;
+diag 'blahblah';
