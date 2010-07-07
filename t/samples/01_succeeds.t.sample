@@ -7,3 +7,4 @@ sleep 1;
 pass 'a';
 sleep 1;
 pass 'b';
+sleep 1;

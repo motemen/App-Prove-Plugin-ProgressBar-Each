@@ -7,5 +7,6 @@ sleep 1;
 pass;
 sleep 1;
 pass;
+sleep 1;
 
 done_testing;
