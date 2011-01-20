@@ -13,4 +13,3 @@ sleep 1;
 fail 'b';
 sleep 1;
 diag 'blahblah';
-sleep 1;

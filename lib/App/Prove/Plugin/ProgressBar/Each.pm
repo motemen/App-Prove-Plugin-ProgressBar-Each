@@ -31,7 +31,6 @@ sub new {
 sub open_test {
     my ($self, $test, $parser) = @_;
 
-    print "\n" if exists $self->{progress};
     $self->_set_colors('green');
 
     my $name = sprintf '%-25s', "$test";
@@ -50,7 +49,9 @@ sub open_test {
             if ($parser->failed || $parser->parse_errors) {
                 $self->_set_colors('red');
             }
+            my $newline = defined $self->{progress} && $self->{progress}->{tpq}->target;
             undef $self->{progress};
+            print "\n" if $newline;
             $self->_set_colors('reset');
         }
     );
@@ -60,6 +61,13 @@ sub open_test {
             my $plan = shift;
             $self->{progress}->{tpq}->target($plan->tests_planned);
             $self->{progress}->{args}->{count} = $plan->tests_planned;
+
+            if ($plan->directive) {
+                my $tpq = $self->{progress}->{tpq};
+                $tpq->target(1);
+                undef $self->{progress};
+                print { $tpq->fh } "\r", $tpq->name, ': ', $plan->directive;
+            }
         }
     );
 
@@ -67,7 +75,6 @@ sub open_test {
         test => sub {
             my $test = shift;
             if (not $test->is_ok) {
-                print "\r", (' ' x $self->{progress}->{tpq}->term_width);
                 $self->_set_colors('red')
             }
             $self->{progress}++;
